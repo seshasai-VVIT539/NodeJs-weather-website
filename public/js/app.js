@@ -7,7 +7,7 @@ const msg2 = document.querySelector('#message2')
 form.addEventListener('submit', (e) => {
     e.preventDefault()
     const location = search.value
-    fetch('http://api.weatherstack.com/current?access_key=0aeb2e9c62a8cdf650a7d942c3e4e9a0&query=' + encodeURIComponent(location))
+    fetch('/weather?address=' + encodeURIComponent(location))
         .then((response) => {
             response.json().then((data) => {
                 if (data.error) {
@@ -15,7 +15,7 @@ form.addEventListener('submit', (e) => {
                     msg2.textContent = error
                 } else {
                     msg1.textContent = JSON.stringify(data.location.name + "," + data.location.country)
-                    msg2.textContent = JSON.stringify(data.current.weather_descriptions);
+                    msg2.textContent = JSON.stringify(data.temperature + "," + data.weather_description);
                 }
             })
         }).catch((error) => {
